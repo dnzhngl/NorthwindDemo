@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
-using Entiities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,14 +15,48 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        public void Delete(Product product)
+        {
+            try
+            {
+                _productDal.Delete(product);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public Product Get(int productId)
         {
-            return _productDal.Get(productId);
+            return _productDal.Get(p => p.ProductId == productId);
         }
 
         public List<Product> GetAll()
         {
             return _productDal.GetAll();
+        }
+
+        public List<Product> GetAllByCategoryId(int categoryId)
+        {
+            return _productDal.GetAll(p => p.CategoryId == categoryId);
+        }
+
+        public List<Product> GetAllByUnitPrice(decimal min, decimal max)
+        {
+            return _productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+        }
+
+        public void Update(Product product)
+        {
+            try
+            {
+                _productDal.Update(product);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

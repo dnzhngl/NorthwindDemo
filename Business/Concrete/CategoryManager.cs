@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
-using Entiities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,9 +16,8 @@ namespace Business.Concrete
         }
         public Category Get(int categoryId)
         {
-            return _categoryDal.Get(categoryId);
+            return _categoryDal.Get(c => c.CategoryId == categoryId);
         }
-
         public List<Category> GetAll()
         {
             return _categoryDal.GetAll();

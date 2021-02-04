@@ -13,7 +13,7 @@ Abstract klasörlerin içerisinde referans tutucular konulur.
 - UI -
 
 -----------------------------------------------
-LINQ - Language Integratred Query (Dile gömülü sorgulama)
+LINQ - Language-Integratred Query (Dile ile bütünleşik sorgulama)
  => --> Lambda işareti
 
 	-SingleOrDefault(),

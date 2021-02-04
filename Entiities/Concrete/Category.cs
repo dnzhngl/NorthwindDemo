@@ -1,9 +1,9 @@
-﻿using Entiities.Abstract;
+﻿using Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entiities.Concrete
+namespace Entities.Concrete
 {
     public class Category : IEntity
     {
