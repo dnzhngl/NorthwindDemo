@@ -9,12 +9,27 @@ namespace Business.Concrete
 {
     public class CategoryManager : ICategoryService
     {
+        // Bağımlılığı Constructor injection ile yapıyoruz.
         private readonly ICategoryDal _categoryDal;
         public CategoryManager(ICategoryDal categoryDal)
         {
             _categoryDal = categoryDal;
         }
-        public Category Get(int categoryId)
+
+        public void Add(Category category)
+        {
+            _categoryDal.Add(category);
+        }
+        public void Delete(Category category)
+        {
+            _categoryDal.Delete(category);
+        }
+        public void Update(Category category)
+        {
+            _categoryDal.Update(category);
+        }
+       
+        public Category GetById(int categoryId) // SELECT * FROM Categories WHERE CategoryID = categoryId;
         {
             return _categoryDal.Get(c => c.CategoryId == categoryId);
         }
@@ -22,5 +37,6 @@ namespace Business.Concrete
         {
             return _categoryDal.GetAll();
         }
+
     }
 }

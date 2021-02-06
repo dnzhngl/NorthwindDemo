@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +74,11 @@ namespace DataAccess.Concrete.InMemory
                 var query = filter.Compile();
                 return _products.Where(query.Invoke).ToList();
             }
+        }
+
+        public List<ProductDetailDto> GetProductDetails()
+        {
+            throw new NotImplementedException();
         }
 
         //public List<Product> GetAllByCategory(int categoryId)

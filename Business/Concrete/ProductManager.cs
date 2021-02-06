@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,11 +16,27 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        public void Add(Product product)
+        {
+            _productDal.Add(product);
+        }
+
         public void Delete(Product product)
         {
             try
             {
                 _productDal.Delete(product);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void Update(Product product)
+        {
+            try
+            {
+                _productDal.Update(product);
             }
             catch (Exception)
             {
@@ -47,16 +64,9 @@ namespace Business.Concrete
             return _productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
         }
 
-        public void Update(Product product)
+        public List<ProductDetailDto> GetProductDetails()
         {
-            try
-            {
-                _productDal.Update(product);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return _productDal.GetProductDetails();
         }
     }
 }
