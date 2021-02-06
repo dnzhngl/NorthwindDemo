@@ -53,24 +53,33 @@ namespace DataAccess.Concrete.InMemory
 
         public Product Get(Expression<Func<Product, bool>> filter)
         {
-            throw new NotImplementedException();
+            var query = filter.Compile();
+            return (Product)_products.SingleOrDefault(query.Invoke);
         }
 
-        public List<Product> GetAll()
-        {
-            return _products;
-        }
+        //public List<Product> GetAll()
+        //{
+        //    return _products;
+        //}
 
         public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                return _products;
+            }
+            else
+            {
+                var query = filter.Compile();
+                return _products.Where(query.Invoke).ToList();
+            }
         }
 
-        public List<Product> GetAllByCategory(int categoryId)
-        {
-            var productList = _products.Where(p => p.CategoryId == categoryId).ToList();
-            return productList;
-        }
+        //public List<Product> GetAllByCategory(int categoryId)
+        //{
+        //    var productList = _products.Where(p => p.CategoryId == categoryId).ToList();
+        //    return productList;
+        //}
 
         public void Update(Product product)
         {

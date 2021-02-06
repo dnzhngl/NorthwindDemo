@@ -32,25 +32,34 @@ namespace DataAccess.Concrete.InMemory
             _categories.Remove(categoryToDelete);
         }
 
-        public Category Get(int categoryId)
-        {
-            var category = _categories.SingleOrDefault(c => c.CategoryId == categoryId);
-            return category;
-        }
+        //public Category Get(int categoryId)
+        //{
+        //    var category = _categories.SingleOrDefault(c => c.CategoryId == categoryId);
+        //    return category;
+        //}
 
         public Category Get(Expression<Func<Category, bool>> filter)
         {
-            throw new NotImplementedException();
+            var query = filter.Compile();
+            return (Category)_categories.SingleOrDefault(query.Invoke);
         }
 
-        public List<Category> GetAll()
-        {
-            return _categories;
-        }
+        //public List<Category> GetAll()
+        //{
+        //    return _categories;
+        //}
 
         public List<Category> GetAll(Expression<Func<Category, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            if (filter == null)
+            {
+                return _categories;
+            }
+            else
+            {
+                var query = filter.Compile();
+                return _categories.Where(query.Invoke).ToList();
+            }
         }
 
         public void Update(Category category)
