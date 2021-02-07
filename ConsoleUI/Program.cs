@@ -23,7 +23,15 @@ namespace ConsoleUI
 
             // ProductTest();
             // CategoryTest();
+            // OrderTest();
 
+        }
+
+        private static void OrderTest()
+        {
+            OrderManager orderManager = new OrderManager(new EfOrderDal());
+            var order = orderManager.GetOrderDetail(10248);
+            Console.WriteLine($"{order.OrderId} - {order.CompanyName}  {order.EmployeeName}");
         }
 
         private static void CategoryTest()
@@ -40,10 +48,13 @@ namespace ConsoleUI
             ProductManager productManager = new ProductManager(new EfProductDal());
 
             Console.WriteLine("Ürün - Kategori");
-            foreach (var product in productManager.GetProductDetails())
-            {
-                Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
-            }
+            //foreach (var product in productManager.GetProductDetails())
+            //{
+            //    Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
+            //}
+
+            var productDetail = productManager.GetProductDetail(1);
+            Console.WriteLine($"{productDetail.ProductName} - {productDetail.CategoryName}");
         }
     }
 }

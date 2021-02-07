@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,12 +20,14 @@ namespace Business.Concrete
         {
             _orderDal.Add(order);
         }
-
         public void Delete(Order order)
         {
             _orderDal.Delete(order);
         }
-
+        public void Update(Order order)
+        {
+            _orderDal.Update(order);
+        }
         public Order Get(int orderId)
         {
             return _orderDal.Get(o => o.OrderId == orderId);
@@ -45,9 +48,15 @@ namespace Business.Concrete
             return _orderDal.GetAll(o => o.EmployeeId == employeeId);
         }
 
-        public void Update(Order order)
+        public List<OrderDetailDto> GetAllOrderDetails()
         {
-            _orderDal.Update(order);
+            return _orderDal.GetAllOrderDetails();
         }
+
+        public OrderDetailDto GetOrderDetail(int orderId)
+        {
+            return _orderDal.GetOrderDetail(orderId);
+        }
+
     }
 }

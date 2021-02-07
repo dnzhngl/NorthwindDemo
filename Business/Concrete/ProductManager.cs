@@ -68,5 +68,10 @@ namespace Business.Concrete
         {
             return _productDal.GetProductDetails();
         }
+
+        public ProductDetailDto GetProductDetail(int productId)
+        {
+            return _productDal.GetProductDetail(productId);
+        }
     }
 }
