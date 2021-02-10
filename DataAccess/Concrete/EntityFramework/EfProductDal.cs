@@ -32,7 +32,7 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public List<ProductDetailDto> GetProductDetails()
+        public List<ProductDetailDto> GetProductsDetails()
         {
             using (NorthwindContext context = new NorthwindContext())
             {

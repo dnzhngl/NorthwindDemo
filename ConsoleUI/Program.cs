@@ -21,7 +21,7 @@ namespace ConsoleUI
             //Console.WriteLine($"{product2.ProductName} {product2.UnitPrice}");
             #endregion
 
-            // ProductTest();
+            ProductTest();
             // CategoryTest();
             // OrderTest();
 
@@ -47,14 +47,23 @@ namespace ConsoleUI
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
 
-            Console.WriteLine("Ürün - Kategori");
-            //foreach (var product in productManager.GetProductDetails())
-            //{
-            //    Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
-            //}
+            var result = productManager.GetProductDetails();
+            if (result.Success)
+            {
+                Console.WriteLine("Ürün - Kategori");
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine($"{product.ProductName} - {product.CategoryName}");
+                }
+                Console.WriteLine(result.Message);
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
 
-            var productDetail = productManager.GetProductDetail(1);
-            Console.WriteLine($"{productDetail.ProductName} - {productDetail.CategoryName}");
+            //var productDetail = productManager.GetProductDetail(1);
+            //Console.WriteLine($"{productDetail.ProductName} - {productDetail.CategoryName}");
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Business.Abstract
 {
     public interface IOrderService
     {
-        Order Get(int orderId);
+        Order GetById(int orderId);
         void Add(Order order);
         void Delete(Order order);
         void Update(Order order);

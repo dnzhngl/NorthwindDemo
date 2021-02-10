@@ -28,7 +28,7 @@ namespace Business.Concrete
         {
             _orderDal.Update(order);
         }
-        public Order Get(int orderId)
+        public Order GetById(int orderId)
         {
             return _orderDal.Get(o => o.OrderId == orderId);
         }
