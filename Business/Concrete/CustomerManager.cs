@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,33 +16,54 @@ namespace Business.Concrete
         {
             _customerDal = customerDal;
         }
-        public void Add(Customer customer)
+        public IResult Add(Customer customer)
         {
-            _customerDal.Add(customer);
+            var result = _customerDal.Get(c => c.CompanyName == customer.CompanyName && c.City == customer.City);
+            if (result == null)
+            {
+                _customerDal.Add(customer);
+                return new SuccessResult(Messages.Customers.Add(customer.CompanyName, customer.City));
+            }
+            return new ErrorResult(Messages.Customers.Exists(customer.CompanyName, customer.City));
         }
-        public void Delete(Customer customer)
+        public IResult Delete(Customer customer)
         {
-            try
+            var result = _customerDal.Get(c => c.CompanyName == customer.CompanyName && c.City == customer.City);
+            if (result != null)
             {
                 _customerDal.Delete(customer);
+                return new SuccessResult(Messages.Customers.Delete(customer.CompanyName, customer.City));
             }
-            catch (Exception)
+            return new ErrorResult(Messages.NotFound);
+        }
+        public IResult Update(Customer customer)
+        {
+            var result = _customerDal.Get(c => c.CompanyName == customer.CompanyName && c.City == customer.City);
+            if (result != null)
             {
-                throw;
+                _customerDal.Update(customer);
+                return new SuccessResult(Messages.Customers.Update(customer.CompanyName, customer.City));
             }
+            return new ErrorResult(Messages.NotFound);
         }
-        public void Update(Customer customer)
+        public IDataResult<Customer> GetById(string customerId)
         {
-            _customerDal.Update(customer);
-        }
-        public Customer GetById(string customerId)
-        {
-            return _customerDal.Get(c => c.CustomerId == customerId);
+            var result = _customerDal.Get(c => c.CustomerId == customerId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Customer>(result);
+            }
+            return new ErrorDataResult<Customer>(Messages.NotFound);
         }
 
-        public List<Customer> GetAll()
+        public IDataResult<List<Customer>> GetAll()
         {
-            return _customerDal.GetAll();
+            var result = _customerDal.GetAll();
+            if (result != null)
+            {
+                return new SuccessDataResult<List<Customer>>(result);
+            }
+            return new ErrorDataResult<List<Customer>>(Messages.NotFound);
         }
 
 

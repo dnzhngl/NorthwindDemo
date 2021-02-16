@@ -21,7 +21,7 @@ namespace ConsoleUI
             //Console.WriteLine($"{product2.ProductName} {product2.UnitPrice}");
             #endregion
 
-            ProductTest();
+            // ProductTest();
             // CategoryTest();
             // OrderTest();
 
@@ -30,14 +30,14 @@ namespace ConsoleUI
         private static void OrderTest()
         {
             OrderManager orderManager = new OrderManager(new EfOrderDal());
-            var order = orderManager.GetOrderDetail(10248);
+            var order = orderManager.GetOrderDetail(10248).Data;
             Console.WriteLine($"{order.OrderId} - {order.CompanyName}  {order.EmployeeName}");
         }
 
         private static void CategoryTest()
         {
             CategoryManager categoryManager = new CategoryManager(new EfCategoryDal());
-            foreach (var category in categoryManager.GetAll())
+            foreach (var category in categoryManager.GetAll().Data)
             {
                 Console.WriteLine(category.CategoryName);
             }

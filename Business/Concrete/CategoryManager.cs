@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,26 +18,55 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
-        public void Add(Category category)
+        public IResult Add(Category category)
         {
-            _categoryDal.Add(category);
+            var result = _categoryDal.Get(c => c.CategoryName == category.CategoryName);
+            if (result == null)
+            {
+                _categoryDal.Add(category);
+                return new SuccessResult(Messages.Categories.Add(category.CategoryName));
+            }
+            return new ErrorResult(Messages.Categories.Exists(category.CategoryName));
         }
-        public void Delete(Category category)
+        public IResult Delete(Category category)
         {
-            _categoryDal.Delete(category);
+            var result = _categoryDal.Get(c => c.CategoryId == category.CategoryId);
+            if (result != null)
+            {
+                _categoryDal.Delete(category);
+                return new SuccessResult(Messages.Categories.Delete(category.CategoryName));
+            }
+            return new ErrorResult(Messages.NotFound);
         }
-        public void Update(Category category)
+        public IResult Update(Category category)
         {
-            _categoryDal.Update(category);
+            var result = _categoryDal.Get(c => c.CategoryId == category.CategoryId);
+            if (result != null)
+            {
+                _categoryDal.Update(category);
+                return new SuccessResult(Messages.Categories.Update(category.CategoryName));
+            }
+            return new ErrorResult(Messages.NotFound);
         }
        
-        public Category GetById(int categoryId) // SELECT * FROM Categories WHERE CategoryID = categoryId;
+        public IDataResult<Category> GetById(int categoryId) // SELECT * FROM Categories WHERE CategoryID = categoryId;
         {
-            return _categoryDal.Get(c => c.CategoryId == categoryId);
+            var result = _categoryDal.Get(c => c.CategoryId == categoryId);
+            if (result != null)
+            {
+                return new SuccessDataResult<Category>(result);
+            }
+            return new ErrorDataResult<Category>(Messages.NotFound);
+            
         }
-        public List<Category> GetAll()
+        public IDataResult<List<Category>> GetAll()
         {
-            return _categoryDal.GetAll();
+            var result = _categoryDal.GetAll();
+            if (result != null)
+            {
+                return new SuccessDataResult<List<Category>>(result);
+            }
+            return new ErrorDataResult<List<Category>>(Messages.NotFound);
         }
 
     }

@@ -18,14 +18,18 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
+        // AOP : Hata yöneitmi, loglama yönetimi, validasyon işlemleri
+        // [LogAspect] : logla
+        // [Validate] : Validasyon yap
+        // [RemoveCache] : cache'i temizle
         public IResult Add(Product product)
         {
             if (product.ProductName.Length < 2)
             {
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.Products.Exists(product.ProductName));
             }
             _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
+            return new SuccessResult(Messages.Products.Add(product.ProductName));
         }
         public IResult Delete(Product product)
         {
@@ -45,22 +49,22 @@ namespace Business.Concrete
 
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
-            {
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            }
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+            //if (DateTime.Now.Hour == 23)
+            //{
+            //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            //}
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll());
         }
 
         public IDataResult<List<Product>> GetAllByCategoryId(int categoryId)
         {
             var result = _productDal.GetAll(p => p.CategoryId == categoryId);
-            return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(result);
         }
 
         public IDataResult<List<Product>> GetAllByUnitPrice(decimal min, decimal max)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max), Messages.ProductsListed);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max));
         }
 
         public IDataResult<List<ProductDetailDto>> GetProductDetails()
@@ -69,7 +73,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<ProductDetailDto>>(Messages.MaintenanceTime);
             }
-            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductsDetails(), Messages.ProductsListed);
+            return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductsDetails());
         }
 
         public IDataResult<ProductDetailDto> GetProductDetail(int productId)
