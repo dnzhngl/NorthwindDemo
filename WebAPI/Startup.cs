@@ -32,15 +32,18 @@ namespace WebAPI
         {
 
             services.AddControllers();
-
             // Autofac, Ninject, CastleWindsor, StructureMap, LightInject, DryInject --> IoC Container 
             // Autofac kullanmayı tercih etme sebebimiz bize AOP imkanı sunduğundan. 
 
             // Burası ise Built in IoC container
             // - singleton - tüm bellekte bir tane instance oluşturuyor kim isterse istesin ona aynı referansı veriyor. içerisinde data tutmadığınız durumlarda kullanılır. 
             // -AddScoped , AddTrensient  = içerisinde data tutulan durumlarda kullanılır.
-            services.AddSingleton<IProductService, ProductManager>(); // birisi constructorda senden IProductService isterse sen ona newlenmiş ProductManager ver.
-            services.AddSingleton<IProductDal, EfProductDal>(); 
+            #region Before Autofac
+            //services.AddSingleton<IProductService, ProductManager>(); // birisi constructorda senden IProductService isterse sen ona newlenmiş ProductManager ver.
+            //services.AddSingleton<IProductDal, EfProductDal>();  
+
+            // Autofac yapılandırmasını PRogram.cs içerisinde yapıyoruz.
+            #endregion
 
 
             services.AddSwaggerGen(c =>
