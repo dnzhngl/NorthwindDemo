@@ -13,6 +13,11 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
     {
+        /// <summary>
+        /// Brings detailed information of the product corresponding to the entered Id parameter.
+        /// </summary>
+        /// <param name="productId">Takes the product id of integer type as a parameter.</param>
+        /// <returns>Returns product detail in a type of ProductDetailDto</returns>
         public ProductDetailDto GetProductDetail(int productId)
         {
             using (NorthwindContext context = new NorthwindContext())
@@ -31,7 +36,10 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.FirstOrDefault();
             }
         }
-
+        /// <summary>
+        /// Gets all of the products details in a type of ProductDetailDto.
+        /// </summary>
+        /// <returns>Returns list of products in a type of ProductDetialDto</returns>
         public List<ProductDetailDto> GetProductsDetails()
         {
             using (NorthwindContext context = new NorthwindContext())

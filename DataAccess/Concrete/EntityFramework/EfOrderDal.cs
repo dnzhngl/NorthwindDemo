@@ -11,6 +11,11 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfOrderDal : EfEntityRepositoryBase<Order, NorthwindContext>, IOrderDal
     {
+        /// <summary>
+        /// Brings detailed information of the order corresponding to the entered Id parameter.
+        /// </summary>
+        /// <param name="orderId">Takes the order id of integer type as a parameter.</param>
+        /// <returns>Returns order detail in a type of OrderDetailDto</returns>
         public OrderDetailDto GetOrderDetail(int orderId)
         {
             using (NorthwindContext context = new NorthwindContext())
@@ -32,7 +37,11 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.FirstOrDefault();
             }
         }
-
+        /// <summary>
+        /// Brings detailed information of the order corresponding to the entered Id parameter.
+        /// </summary>
+        /// <param name="orderId">Takes the order id of integer type as a parameter.</param>
+        /// <returns>Returns order detail in a type of OrderDetailDto</returns>
         public List<OrderDetailDto> GetAllOrderDetails()
         {
             using (NorthwindContext context = new NorthwindContext())
