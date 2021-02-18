@@ -68,6 +68,25 @@ namespace Business.Constants
                 return $"{companyName} - {city} bilgilerine sahip bir müşteri sistemde kayıtlıdır.";
             }
         }
+        public static class Employees
+        {
+            public static string Add(string firstName, string lastName)
+            {
+                return $"{firstName} {lastName} isimli çalışan sisteme başarı ile eklenmiştir.";
+            }
+            public static string Update(string firstName, string lastName)
+            {
+                return $"{firstName} {lastName} isimli çalışan bilgileri başarılı bir şekilde güncellenmiştir.";
+            }
+            public static string Delete(string firstName, string lastName)
+            {
+                return $"{firstName} {lastName} isimli çalışan sistemden başarılı bir şekilde silinmiştir.";
+            }
+            public static string Exists(string firstName, string lastName)
+            {
+                return $"{firstName} {lastName} isimli çalışan bilgilerine sahip başka bir kayıt sistemde bulunmaktadır.";
+            }
+        }
         public static class Orders
         {
             public static string Add()

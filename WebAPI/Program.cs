@@ -19,6 +19,7 @@ namespace WebAPI
             CreateHostBuilder(args).Build().Run();
         }
 
+        // Server ile ilgili konfigurasyonların olduğu yer
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //IoC yapısı olarak git Autofac'ı kullan diyorsun.

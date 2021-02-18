@@ -7,7 +7,7 @@ namespace Core.CrossCuttingConcerns.Validation
 {
     public static class ValidationTool
     {
-        public static void Validate(IValidator validator, object entity) // IValidator bizim yazmış oolduğumuz Validatorların referansı tutar. Object entity entity ve dto sınıflarımızın referansını tutar.
+        public static void Validate(IValidator validator, object entity) // IValidator bizim yazmış olduğumuz Validatorların referansını tutar. Object entity, entity ve dto sınıflarımızın referansını tutar.
         {
             var context = new ValidationContext<object>(entity);
             var result = validator.Validate(context);

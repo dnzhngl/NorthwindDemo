@@ -29,6 +29,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
+            #region İş katmanındaki operasyonlar içerisinde teker teker benzer kontrolleri yapmaktansa bu kontrolleri attribute'lara çeviriip gerekli olan operasyonlara ekliyoruz.  Burada AOP uygulamasaydık bir operasyonun içerisinde yer alacak olan standart kodları simgeledik.
             // validation :  gönderilen nesnenin işi kurallarına dhail olması için yapısal olarak uyumlu olup olmadığını kontrol etmek
             //ValidationTool.Validate(new ProductValidator(), product);
             // Loglama
@@ -38,7 +39,7 @@ namespace Business.Concrete
             // Authorization
 
             // business codes
-
+            #endregion
             _productDal.Add(product);
             return new SuccessResult(Messages.Products.Add(product.ProductName));
         }
@@ -47,6 +48,8 @@ namespace Business.Concrete
             _productDal.Delete(product);
             return new Result(true, "Ürün sistemden silindi");
         }
+
+        [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
         {
             _productDal.Update(product);

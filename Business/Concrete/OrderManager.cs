@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,7 +19,7 @@ namespace Business.Concrete
         {
             _orderDal = orderDal;
         }
-
+        [ValidationAspect(typeof(OrderValidator))]
         public IResult Add(Order order)
         {
             _orderDal.Add(order);
@@ -33,6 +35,7 @@ namespace Business.Concrete
             }
             return new ErrorResult(Messages.NotFound);
         }
+        [ValidationAspect(typeof(OrderValidator))]
         public IResult Update(Order order)
         {
             var result = _orderDal.Get(o => o.OrderId == order.OrderId);

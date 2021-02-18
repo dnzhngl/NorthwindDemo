@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,7 +19,7 @@ namespace Business.Concrete
         {
             _categoryDal = categoryDal;
         }
-
+        [ValidationAspect(typeof(CategoryValidator))]
         public IResult Add(Category category)
         {
             var result = _categoryDal.Get(c => c.CategoryName == category.CategoryName);
@@ -38,6 +40,7 @@ namespace Business.Concrete
             }
             return new ErrorResult(Messages.NotFound);
         }
+        [ValidationAspect(typeof(CategoryValidator))]
         public IResult Update(Category category)
         {
             var result = _categoryDal.Get(c => c.CategoryId == category.CategoryId);
