@@ -29,9 +29,12 @@ namespace Business.Constants
             {
                 return $"{productName} bilgilerine sahip bir ürün sistemde kayıtlıdır.";
             }
+            public static string ProductCountOfCategoryError = "Bir kategoride en fazla 10 farklı ürün olabilir.";
         }
         public static class Categories
         {
+            public static string CategoryLimitExceeded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor.";
+
             public static string Add(string categoryName)
             {
                 return $"{categoryName} isimli kategori sisteme başarı ile eklenmiştir.";

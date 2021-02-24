@@ -33,8 +33,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CustomerManager>().As<ICustomerService>().SingleInstance();
             builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
 
-
-
             // Autof bize interceptor görevi veriyor.
 
             // Çalışan uygulamamız içerisinde, -kayıt etmiş olduğumuz sınıfların her biri için - implement edilmiş interfaceleri bulur, onlar için AspetInterceptorSelector'ı çağır.
