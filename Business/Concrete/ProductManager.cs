@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -46,6 +47,8 @@ namespace Business.Concrete
         // [LogAspect] : logla
         // [Validate] : Validasyon yap
         // [RemoveCache] : cache'i temizle
+        // Korunan operasyon/method - Claimler (product.add, admin vb. kllanıcının claimleri.
+        [SecuredOperation("product.add,admin")] //--> - bu metoda kimler ulaşabilir,operaston bazında yetkilendirme, 
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {

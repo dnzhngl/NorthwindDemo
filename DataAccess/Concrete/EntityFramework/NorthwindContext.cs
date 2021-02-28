@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {   
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=True;"); // Bağlanacağımız veritabanı için connection string girilir.
-            //Gerçekte : Server = 175.45.2.12 (ip adresi girilir.), Database Adı, Güçlü bir domain yönetimi var ise Trusted connection (integrated security ) True /  olarak kullanılır. Ancak güçlü bir domain yönetimi yoksa kullanıcı adı ve şifre girilir.
+            // Gerçekte : Server = 175.45.2.12 (ip adresi girilir.), Database Adı, Güçlü bir domain yönetimi var ise Trusted connection (integrated security ) True /  olarak kullanılır. Ancak güçlü bir domain yönetimi yoksa kullanıcı adı ve şifre girilir.
             // Proje çalıştığında EF ilk buraya bakıyor nereye bağlanacağını öğreniyor.
         }
 
@@ -22,5 +23,8 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     }
 }
