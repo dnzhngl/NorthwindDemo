@@ -52,16 +52,25 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
         /// <param name="pattern"></param>
         public void RemoveByPattern(string pattern)
         {
+            // Git belleğe bak, bellekte MemoryCache türünde olan, adı EntriesCollection olan  ve non-public yada instance olan propertyleri bul.
+            // EntriesCollection -> microsoft, cachlediğinde cache datalarını EntriesCollection içerisine attığını dokümantasyonda veriyor.
             var cacheEntriesCollectionDefinition = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            //Bulduğun propertyler içerisinde definitionı memoryCache olanların valuesını al.
             var cacheEntriesCollection = cacheEntriesCollectionDefinition.GetValue(_memoryCache) as dynamic;
+
+            // ICache tipinde liste oluştur.
             List<ICacheEntry> cacheCollectionValues = new List<ICacheEntry>();
 
+            // cacheEntriesCollection içindeki her bir item için
             foreach (var cacheItem in cacheEntriesCollection)
             {
-                ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
-                cacheCollectionValues.Add(cacheItemValue);
+                ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null); // cache elemanının value'sunu al.
+                cacheCollectionValues.Add(cacheItemValue); // cacheCollectionValues'a ekle.
             }
+
             // regex kuralımız -> patternımız single line olacak, compiled olacak ve case sensitive olmayacak.
+            // gönderilen patern uygulanacak.
             var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             // cache collection içerisinde verdiğimiz regex patternine sahip olan keyleri bul listele.
             var keysToRemove = cacheCollectionValues.Where(d => regex.IsMatch(d.Key.ToString())).Select(d => d.Key).ToList();
