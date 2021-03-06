@@ -15,8 +15,10 @@ using System.Text;
 namespace Business.DependencyResolvers.Autofac
 {
     // Bu projeyi ilgilendiren configurasyonu burada yaptığımız için business module adını verdik.
+    // Proje bazında IoC injectionları buraa bulunur.
     public class AutofacBusinessModule : Module //Autofac Module'unden implement edildi. Startuptaki dependency injection ortamını kurmamızı sağlıyor.
     {
+       
         protected override void Load(ContainerBuilder builder) // Uygulama hayata geçtiği zaman, bu kod bloğu çalışacak.
         {
             // Singleınstance => AddSıngleton  : bir instance üretir herkese onu verir.
@@ -41,7 +43,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
-            // Startupta service ı tanıttığımız için bunu yorum satırı haline getirdim.
+            // Startupta service ı tanıttığımız için buna burada gerek yok.
             // builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
 

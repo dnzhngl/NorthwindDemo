@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.JWT;
@@ -37,24 +39,30 @@ namespace WebAPI
         {
 
             services.AddControllers();
+            #region Before Autofac
+
             // Autofac, Ninject, CastleWindsor, StructureMap, LightInject, DryInject --> IoC Container 
             // Autofac kullanmayı tercih etme sebebimiz bize AOP imkanı sunduğundan. 
 
             // Burası ise Built in IoC container
             // - singleton - tüm bellekte bir tane instance oluşturuyor kim isterse istesin ona aynı referansı veriyor. içerisinde data tutmadığınız durumlarda kullanılır. 
             // -AddScoped , AddTrensient  = içerisinde data tutulan durumlarda kullanılır.
-            #region Before Autofac
+
             //services.AddSingleton<IProductService, ProductManager>(); // birisi constructorda senden IProductService isterse sen ona newlenmiş ProductManager ver.
             //services.AddSingleton<IProductDal, EfProductDal>();  
 
             // Autofac yapılandırmasını PRogram.cs içerisinde yapıyoruz.
             #endregion
+            #region Before CoreModule implemetation
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // Client tarafından her yapılan istek ile ilgili oluşan context. İsteğin oluştuğu andan yanıtın döndüğü zaman kadar olan herşeyi HttpContextAccessor kontrol ediyor. Buradaki injection tüm projelerde kullanılacak olan bir yapı. O yüzden burası Core'a gider.
+
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            #endregion
 
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -70,7 +78,11 @@ namespace WebAPI
                     };
                 });
 
-            ServiceTool.Create(services);
+            // İhtiyaç duyduğum her modulü buraya ekleyebileyim.
+            services.AddDependencyResolvers(new ICoreModule[] {
+                new CoreModule() //, new DifferentModule()
+            });
+
 
             services.AddSwaggerGen(c =>
             {
@@ -92,9 +104,9 @@ namespace WebAPI
 
             app.UseRouting();
 
-            app.UseAuthentication(); 
+            app.UseAuthentication(); // login & registration vb.
 
-            app.UseAuthorization();
+            app.UseAuthorization();  // roles 
 
             app.UseEndpoints(endpoints =>
             {

@@ -20,7 +20,8 @@ namespace Core.Utilities.Business
             return null; // başarılı ise bişey döndürmesine gerek yok o yüzden null döndür dedik.
         }
 
-        // Aşağıdaki metod ile bütün hataların tek seferde dönmesiini sağlayabiliriz.
+
+        #region Burada bütün hataların tek seferde dönmesini sağlayabiliriz.
         //public static List<IResult> Run(params IResult[] logics)
         //{
         //    List<IResult> errorResults = new List<IResult>();
@@ -33,5 +34,6 @@ namespace Core.Utilities.Business
         //    }
         //    return errorResults; 
         //}
+        #endregion
     }
 }

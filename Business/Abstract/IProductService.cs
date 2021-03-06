@@ -40,6 +40,14 @@ namespace Business.Abstract
         /// </summary>
         /// <param name="productId">Takes the product id of integer type as a parameter.</param>
         /// <returns>Returns IDataResult with data of product detail in a type of ProductDetailDto</returns>
-        IDataResult<ProductDetailDto> GetProductDetail(int productId);  
+        IDataResult<ProductDetailDto> GetProductDetail(int productId);
+
+
+        /// <summary>
+        /// Transaction testi -> uygulamalarda 
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        IResult AddTransactionalTest(Product product);
     }
 }
