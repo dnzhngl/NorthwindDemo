@@ -12,7 +12,7 @@ namespace Core.Utilities.Security.Encryption
         // appsettings.jsondaki SecurityKey parametre oalrak gelir.
         public static SecurityKey CreateSecurityKey(string securityKey)
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey)); // 
+            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey));  
         }
     }
 }

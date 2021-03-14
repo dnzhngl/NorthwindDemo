@@ -44,7 +44,7 @@ namespace Business.Abstract
 
 
         /// <summary>
-        /// Transaction testi -> uygulamalarda 
+        /// Transaction test
         /// </summary>
         /// <param name="product"></param>
         /// <returns></returns>

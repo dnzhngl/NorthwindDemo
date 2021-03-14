@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    // İtenilen herhangi bir entitiy / dto için validator yazılabilir.
+    // İstenilen herhangi bir entity / dto için validator yazılabilir.
     public class ProductValidator : AbstractValidator<Product>  //FluentValidator'den gelen AbstractValidator içerisine kim için kullanacağımızı giriyoruz. 
     {
         // Kurallar constructor içerisine yazılır.
@@ -24,7 +24,7 @@ namespace Business.ValidationRules.FluentValidation
 
         private bool StartWithA(string arg)  
         {
-            return arg.StartsWith("A"); // True yada false döner. false döner validationdan geçemez.
+            return arg.StartsWith("A"); // True yada false döner. false dönerse validationdan geçemez.
         }
     }
 }

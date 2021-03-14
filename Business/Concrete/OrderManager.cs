@@ -66,6 +66,11 @@ namespace Business.Concrete
             return new ErrorDataResult<List<Order>>(Messages.NotFound);
         }
 
+        /// <summary>
+        /// Gets the order details that has the given customer id.
+        /// </summary>
+        /// <param name="customerId">Customer id in type of ineteger</param>
+        /// <returns>If founds any matching data, returns SuccessDataResult with the data of OrderDetailDto object, else returns ErrorDataResult with an not found message.</returns>
         public IDataResult<List<Order>> GetAllByCustomerId(string customerId)
         {
             var result = _orderDal.GetAll(o => o.CustomerId == customerId);
@@ -76,6 +81,11 @@ namespace Business.Concrete
             return new ErrorDataResult<List<Order>>(Messages.NotFound);
         }
 
+        /// <summary>
+        /// Gets the order details that has the given employee id.
+        /// </summary>
+        /// <param name="employeeId">Employee id in type of ineteger</param>
+        /// <returns>If founds any matching data, returns SuccessDataResult with the data of OrderDetailDto object, else returns ErrorDataResult with an not found message.</returns>
         public IDataResult<List<Order>> GetAllByEmployeeId(int employeeId)
         {
             var result = _orderDal.GetAll(o => o.EmployeeId == employeeId);
@@ -86,6 +96,10 @@ namespace Business.Concrete
             return new ErrorDataResult<List<Order>>(Messages.NotFound);
         }
 
+        /// <summary>
+        /// Gets all of the order details.
+        /// </summary>
+        /// <returns>If founds any matching data, returns SuccessDataResult with the data of list of OrderDetailDto, else returns ErrorDataResult with an not found message.</returns>
         public IDataResult<List<OrderDetailDto>> GetAllOrderDetails()
         {
             var result = _orderDal.GetAllOrderDetails();
@@ -96,6 +110,11 @@ namespace Business.Concrete
             return new ErrorDataResult<List<OrderDetailDto>>(Messages.NotFound);
         }
 
+        /// <summary>
+        /// Gets the order details that has the given order id.
+        /// </summary>
+        /// <param name="orderId">Order id in type of ineteger</param>
+        /// <returns>If founds any matching data, returns SuccessDataResult with the data of OrderDetailDto object, else returns ErrorDataResult with an not found message.</returns>
         public IDataResult<OrderDetailDto> GetOrderDetail(int orderId)
         {
             var result = _orderDal.Get(o => o.OrderId == orderId);

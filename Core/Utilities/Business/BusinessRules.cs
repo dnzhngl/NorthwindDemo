@@ -22,18 +22,18 @@ namespace Core.Utilities.Business
 
 
         #region Burada bütün hataların tek seferde dönmesini sağlayabiliriz.
-        //public static List<IResult> Run(params IResult[] logics)
-        //{
-        //    List<IResult> errorResults = new List<IResult>();
-        //    foreach (var logic in logics)
-        //    {
-        //        if (!logic.Success) 
-        //        {
-        //            errorResults.Add(logic);
-        //        }
-        //    }
-        //    return errorResults; 
-        //}
+        public static List<IResult> RunList(params IResult[] logics)
+        {
+            List<IResult> errorResults = new List<IResult>();
+            foreach (var logic in logics)
+            {
+                if (!logic.Success)
+                {
+                    errorResults.Add(logic);
+                }
+            }
+            return errorResults;
+        }
         #endregion
     }
 }

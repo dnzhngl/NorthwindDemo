@@ -8,7 +8,7 @@ namespace Core.Extensions
     // C#'ta Bir extension yazabilmek için hem classın hemde metodun static olması gerekir.
     public static class ClaimExtensions
     {
-        // (this ICollection<Claim> claims) -> ICollection<Claim>'i ectend ettiğini gösterir.
+        // (this ICollection<Claim> claims) -> ICollection<Claim>'i extend ettiğini gösterir.
         public static void AddEmail(this ICollection<Claim> claims, string email)
         {
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));

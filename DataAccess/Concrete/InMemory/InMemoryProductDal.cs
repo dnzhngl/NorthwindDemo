@@ -94,8 +94,8 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Product product)
         {
-            // Gönderdiğin ürün id'sine sahip olan listedeki ürünü bul. 
-            // Onun referansını productToUpdate dediğim değişkene ata.
+            // Gönderilen ürün id'sine sahip olan listedeki ürünü bulur. 
+            // Onun referansını productToUpdate değişkenine atar.
             var productToUpdate = _products.SingleOrDefault(p => p.ProductId == product.ProductId);
             productToUpdate.ProductName = product.ProductName;
             productToUpdate.CategoryId = product.CategoryId;

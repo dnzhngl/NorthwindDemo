@@ -61,6 +61,10 @@ namespace WebAPI
 
             #endregion
 
+            // Cors Policy hatası: backendde apiye erişilmesi için gerekli configurasyonların yapılmadığını gösterir.
+            // CORS : Cross Origin Request : farklı bir yerden, originden istek gelmesi
+            // Bizim uygulamamızın çalıştığından farklı bir adresten istek gelmesi durumudur. Günümüzdeki popüler tüm tarayıcılarda olan bir güvenlik mekanizmasıdır. Burada amaç, tarayıcı oraya herhangi bir xss dediğimiz bir atak ile oraya eklenmiş birşey olmadığından emin olmak istiyor. O yüzden, geliştiriciye soruyor, bu adrese güveniyor musun?
+            services.AddCors(); // Cors Injection yapıyoruz.
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -99,6 +103,11 @@ namespace WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
+
+            // UseCors'un yazıldığı yer önemli.
+            app.UseCors(builder => builder.WithOrigins().AllowAnyHeader().AllowAnyOrigin()); // Cors yapılandırması için nereye/hangi adrese izin verdiğimizi belirtiyoruz. Buradaki urlden gelen sorgulara izin ver anlamına geliyor. AllowAnyHeader() : Ne isteği yaptığı önemli değil,(get, post, put vb.) bu adrese güveniyoruz, her konuda izin veriyoruz.
+            // Birden fazla url erişimine izin vermek istiyorsan, WithOrigins içerisine virgül ile ayırarak hepsini girebilirsin.
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:55183").AllowAnyHeader()); 
 
             app.UseHttpsRedirection();
 

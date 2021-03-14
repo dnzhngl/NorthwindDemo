@@ -10,7 +10,7 @@ namespace Core.DataAccess
     // T tipinde ne gelirse o tipte çalışacak. Ancak T bir referans tip (class) olmaalı ve ya IEntity yada IEntity'den implemente olan bir tipte olmalı. 
     // new() : newlenebilir olmalı (IEntity interface olduğundan newlenemez.)
     {
-        List<T> GetAll(Expression<Func<T,bool>> filter = null);   // Expression Filtre vermemizi sağlayan yapı 
+        List<T> GetAll(Expression<Func<T,bool>> filter = null);   // Expression filtre vermemizi sağlayan yapı 
         T Get(Expression<Func<T, bool>> filter );
         void Add(T entity);
         void Update(T entity);

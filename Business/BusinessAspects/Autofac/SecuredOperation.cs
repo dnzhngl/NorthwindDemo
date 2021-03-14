@@ -15,13 +15,13 @@ namespace Business.BusinessAspects.Autofac
     public class SecuredOperation : MethodInterception
     {
         private string[] _roles;
-        private IHttpContextAccessor _httpContextAccessor; // JWT yi de göndererek yapmış olduğumuz request için bir httpContext oluşur. Her bir kişi için ayrı ayrı oluşur. Bu Acce
+        private IHttpContextAccessor _httpContextAccessor; // JWT yi de göndererek yapmış olduğumuz request için bir httpContext oluşur. Her bir kişi için ayrı ayrı oluşur. 
 
         public SecuredOperation(string roles) // constructorda rolleri alır. roller virgülle ayrılarak geliyor.
         {
-            _roles = roles.Split(','); // virgülle ayrılarak gelen rolleri virgüle göre ayırıp arraye atıyor. (_roles arrayi)
+            _roles = roles.Split(','); // virgülle ayrılarak gelen rolleri, virgüle göre ayırıp arraye atıyor. (_roles arrayi)
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
-           // Örn: Diğer UI katmanlarında -->  productService = ServiceTool.ServiceProvider.GetService<IProductService>(); --> Şeklinde autpfacteki ilgili servisi alıp service'i oluşturabilir ve kullanabiliriz. 
+           // Örn: Diğer UI katmanlarında -->  productService = ServiceTool.ServiceProvider.GetService<IProductService>(); --> Şeklinde autofacteki ilgili servisi alıp service'i oluşturabilir ve kullanabiliriz. 
         }
 
         protected override void OnBefore(IInvocation invocation)

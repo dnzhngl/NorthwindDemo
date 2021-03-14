@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Extensions
 {
-    // Service colleciton için extension 
+    // Service collection için extension 
     public static class ServiceCollectionExtensions
     {
         // Asp.Net uygulamamızın yani apimizin servis bağımlılıklarını eklediğimiz yada araya girmesini istediğimiz servisleri eklediğimiz koleksiyonun kendisidir.

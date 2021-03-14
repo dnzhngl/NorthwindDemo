@@ -7,15 +7,17 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    // Context : Db tabloları ile entities classlarımızı ilişkilendiriyoruz.
+    // Context : Database tabloları ile entities classları ilişkilendirilir.
     public class NorthwindContext : DbContext
     {
-        // Projenin hangi veritabanı ile ilişkili olduğunu OnConfguring içerisinde belirtir.
+        // Projenin hangi veritabanı ile ilişkili olduğu OnConfguring içerisinde belirtilir.
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {   
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=True;"); // Bağlanacağımız veritabanı için connection string girilir.
+        {
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=True;"); 
+            // Bağlanılacak olan veritabanı için connection string girilir.
+
             // Gerçekte : Server = 175.45.2.12 (ip adresi girilir.), Database Adı, Güçlü bir domain yönetimi var ise Trusted connection (integrated security ) True /  olarak kullanılır. Ancak güçlü bir domain yönetimi yoksa kullanıcı adı ve şifre girilir.
-            // Proje çalıştığında EF ilk buraya bakıyor nereye bağlanacağını öğreniyor.
+            // Proje çalıştığında EF ilk buraya bakar ve nereye bağlanacağını öğrenir.
         }
 
         public DbSet<Product> Products { get; set; }

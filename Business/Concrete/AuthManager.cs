@@ -55,6 +55,11 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessfulLogin);
         }
 
+        /// <summary>
+        /// Checks whether the given email has any matching.
+        /// </summary>
+        /// <param name="email">Email in type of string must be given.</param>
+        /// <returns>Returns SuccessResult if the email does not exist in the database, else returns ErrorResult with a user already exists message.</returns>
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email).Data != null)
@@ -64,6 +69,11 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        /// <summary>
+        /// Creates access token for the given User that includes the user's claims.
+        /// </summary>
+        /// <param name="user">User object in type of User.</param>
+        /// <returns>Returns SuccessDataResult with the data of created token in type of AccessToken and success message.</returns>
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
             var claims = _userService.GetClaims(user);

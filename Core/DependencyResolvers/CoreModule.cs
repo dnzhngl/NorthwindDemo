@@ -18,7 +18,7 @@ namespace Core.DependencyResolvers
             serviceCollection.AddMemoryCache(); // dotnet yapısı olarak, otomatik olarak IMemoryCache injectioni yapar.Yani arka planda CacheManager instanceı oluşturuyor.
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>(); // Bizim oluşturmuş olduğumuz ICacheManagerın karşılığı olarak microsoftun memory cache managerını ver diyoruz.
-            // serviceCollection.AddSingleton<ICacheManager, RedisCacheManager>(); // Cache yapımızı redis ile değiştirmek istersek, RedisCache eklemek için tek yapman gerek buradaki MemoryCache'i RedisCache ile değiştirmek.
+            // serviceCollection.AddSingleton<ICacheManager, RedisCacheManager>(); // Cache yapımızı redis ile değiştirmek istersek, RedisCache eklemek için tek yapman gereken buradaki MemoryCache'i RedisCache ile değiştirmek.
             serviceCollection.AddSingleton<Stopwatch>();
         }
     }

@@ -15,13 +15,13 @@ using System.Text;
 namespace Business.DependencyResolvers.Autofac
 {
     // Bu projeyi ilgilendiren configurasyonu burada yaptığımız için business module adını verdik.
-    // Proje bazında IoC injectionları buraa bulunur.
+    // Proje bazında IoC injectionları burada bulunur.
     public class AutofacBusinessModule : Module //Autofac Module'unden implement edildi. Startuptaki dependency injection ortamını kurmamızı sağlıyor.
     {
        
         protected override void Load(ContainerBuilder builder) // Uygulama hayata geçtiği zaman, bu kod bloğu çalışacak.
         {
-            // Singleınstance => AddSıngleton  : bir instance üretir herkese onu verir.
+            // SingleInstance => AddSingleton : bir instance üretir herkese onu verir.
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();  // Senden IProductService istendiğinden ProductManager'ı register et. (ProductManager instance'ı ver.)
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
 
@@ -47,7 +47,7 @@ namespace Business.DependencyResolvers.Autofac
             // builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
 
-            // Autof bize interceptor görevi veriyor.
+            // Autofac bize interceptor görevi veriyor.
 
             // Çalışan uygulamamız içerisinde, -kayıt etmiş olduğumuz sınıfların her biri için - implement edilmiş interfaceleri bulur, onlar için AspetInterceptorSelector'ı çağır.
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -24,17 +25,21 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
+        // Swagger - hazır dökümantasyon ürünüdür :  ben sana bi api veriyorum. bu api böyle kullanılır. şu durumda bu sonucu veerir vs diye açıklar.
+        // Dependency chain --
+
+
         [HttpGet("getall")] //isim verme
         public IActionResult GetAll()
         {
-            // Swagger - hazır dökümantasyon ürünüdür :  ben sana bi api veriyorum. bu api böyle kullanılır. şu durumda bu sonucu veerir vs diye açıklar.
-            // Dependency chain --
+            Thread.Sleep(2000); // Frontendde spinnerı görebilmek için sleep ekledik.
+
             var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result); // işlem başarılı
             }
-            return BadRequest(result);
+            return BadRequest(result); // Hatalı/yanlış istek
         }
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
@@ -58,7 +63,6 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        //------------------------------------------
         [HttpPost("delete")]
         public IActionResult Delete(Product product)
         {
@@ -81,7 +85,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("GetAllByCategoryId")]
+        [HttpGet("GetAllByCategory")]
         public IActionResult GetAllByCategoryId(int categoryId)
         {
             var result = _productService.GetAllByCategoryId(categoryId);
