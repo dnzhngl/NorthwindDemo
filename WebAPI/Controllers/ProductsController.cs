@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")] //isim verme
         public IActionResult GetAll()
         {
-            Thread.Sleep(2000); // Frontendde spinnerı görebilmek için sleep ekledik.
+            Thread.Sleep(1000); // Frontendde spinnerı görebilmek için sleep ekledik.
 
             var result = _productService.GetAll();
             if (result.Success)

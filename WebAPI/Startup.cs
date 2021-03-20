@@ -104,6 +104,8 @@ namespace WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
+            app.ConfigureCustomExceptionMiddleware(); // Custom olarak yazmış olduğumuz middleware. Exceptionları handllelar.  Bu hareket ile bütün sistemi api kurallarına uyarak try catch içerisine almış olduk.
+
             // UseCors'un yazıldığı yer önemli.
             app.UseCors(builder => builder.WithOrigins().AllowAnyHeader().AllowAnyOrigin()); // Cors yapılandırması için nereye/hangi adrese izin verdiğimizi belirtiyoruz. Buradaki urlden gelen sorgulara izin ver anlamına geliyor. AllowAnyHeader() : Ne isteği yaptığı önemli değil,(get, post, put vb.) bu adrese güveniyoruz, her konuda izin veriyoruz.
             // Birden fazla url erişimine izin vermek istiyorsan, WithOrigins içerisine virgül ile ayırarak hepsini girebilirsin.
