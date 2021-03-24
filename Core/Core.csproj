@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="CrossCuttingConcerns\Caching\Redis\" />
-    <Folder Include="CrossCuttingConcerns\Logging\Log4Net\" />
   </ItemGroup>
 
 </Project>

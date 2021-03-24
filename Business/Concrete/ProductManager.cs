@@ -52,7 +52,7 @@ namespace Business.Concrete
         // [Validate] : Validasyon yap
         // [RemoveCache] : cache'i temizle
         // Korunan operasyon/method - Claimler (product.add, admin vb. kllanıcının claimleri.
-        //[SecuredOperation("product.add,admin")] //--> - bu metoda kimler ulaşabilir,operaston bazında yetkilendirme, 
+        [SecuredOperation("product.add,admin")] //--> - bu metoda kimler ulaşabilir,operaston bazında yetkilendirme, 
         [ValidationAspect(typeof(ProductValidator))]
         [CacheRemoveAspect("IProductService.Get")] //--> ürün güncellendiği zaman cachedeki tüm getleri siler.
         public IResult Add(Product product)
@@ -69,6 +69,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.Products.Add(product.ProductName));
         }
 
+        // [LogAspect(typeof(DatabaseLogger))]
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
@@ -106,7 +107,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 2)
+            if (DateTime.Now.Hour == 12)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }

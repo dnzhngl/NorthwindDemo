@@ -13,7 +13,7 @@ namespace Core.Extensions
         // Web apinin startupında sisteme ekledik.
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {
-            app.UseMiddleware<ExceptionMiddleware>(); // projeye ayağa kalktığında çalışmasını istediğimiz kod. Bizim oluşturmul olduğumuz exception middleware
+            app.UseMiddleware<ExceptionMiddleware>(); // projeye ayağa kalktığında çalışmasını istediğimiz kod. Bizim oluşturmuş olduğumuz exception middleware
         }
     }
 }

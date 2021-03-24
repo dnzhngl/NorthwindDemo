@@ -22,7 +22,7 @@ namespace Core.Utilities.Interceptors
             {
                 isSuccess = false;
                 OnException(invocation, e);
-                throw;
+                throw; // Debug modunda hatayı verir. Release modunda hatayı döndürür.
             }
             finally
             {

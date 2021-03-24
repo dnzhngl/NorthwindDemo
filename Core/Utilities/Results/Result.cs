@@ -19,6 +19,5 @@ namespace Core.Utilities.Results
 
         public bool Success { get; }    // Getter readonly'dir. Getter'lar constructorda set edilebilir.
         public string Message { get; }
-        public int Count { get; set; }
     }
 }
